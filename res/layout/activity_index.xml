@@ -9,8 +9,36 @@
     tools:context=".IndexActivity" >
 
     <TextView
+        android:id="@+id/menu"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/hello_world" />
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="22dp"
+        android:text="Menu"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:textColor="@layout/activity_index" />
+
+    <TextView
+        android:id="@+id/menuJouer"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/menu"
+        android:layout_marginLeft="32dp"
+        android:layout_marginTop="50dp"
+        android:text="Jouer"
+        android:textAppearance="?android:attr/textAppearanceLarge" />
+
+    <TextView
+        android:id="@+id/menuScore"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignRight="@+id/menu"
+        android:layout_below="@+id/menuJouer"
+        android:layout_marginRight="14dp"
+        android:layout_marginTop="33dp"
+        android:text="Score"
+        android:textAppearance="?android:attr/textAppearanceLarge" />
 
 </RelativeLayout>
