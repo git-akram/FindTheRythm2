@@ -8,37 +8,35 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context=".IndexActivity" >
 
+    <Button
+        android:id="@+id/buttonJouer"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginLeft="32dp"
+        android:layout_marginTop="135dp"
+        android:layout_toLeftOf="@+id/textViewMenu"
+        android:text="Jouer" />
+
+    <Button
+        android:id="@+id/buttonScore"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/buttonJouer"
+        android:layout_below="@+id/buttonJouer"
+        android:layout_marginTop="44dp"
+        android:layout_toLeftOf="@+id/textViewMenu"
+        android:text="Score" />
+
     <TextView
-        android:id="@+id/menu"
+        android:id="@+id/textViewMenu"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="22dp"
+        android:layout_marginTop="43dp"
         android:text="Menu"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:textColor="@layout/activity_index" />
-
-    <TextView
-        android:id="@+id/menuJouer"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_below="@+id/menu"
-        android:layout_marginLeft="32dp"
-        android:layout_marginTop="50dp"
-        android:text="Jouer"
-        android:textAppearance="?android:attr/textAppearanceLarge" />
-
-    <TextView
-        android:id="@+id/menuScore"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignRight="@+id/menu"
-        android:layout_below="@+id/menuJouer"
-        android:layout_marginRight="14dp"
-        android:layout_marginTop="33dp"
-        android:text="Score"
         android:textAppearance="?android:attr/textAppearanceLarge" />
 
 </RelativeLayout>
