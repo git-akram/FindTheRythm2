@@ -17,7 +17,7 @@
         android:layout_marginLeft="32dp"
         android:layout_marginTop="135dp"
         android:layout_toLeftOf="@+id/textViewMenu"
-        android:text="Jouer" />
+        android:text="@string/Jouer" />
 
     <Button
         android:id="@+id/buttonScore"
@@ -27,7 +27,7 @@
         android:layout_below="@+id/buttonJouer"
         android:layout_marginTop="44dp"
         android:layout_toLeftOf="@+id/textViewMenu"
-        android:text="Score" />
+        android:text="@string/Score" />
 
     <TextView
         android:id="@+id/textViewMenu"
@@ -36,7 +36,16 @@
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="43dp"
-        android:text="Menu"
+        android:text="@string/Index_title"
         android:textAppearance="?android:attr/textAppearanceLarge" />
+
+    <Button
+        android:id="@+id/buttonQuit"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/buttonScore"
+        android:layout_below="@+id/buttonScore"
+        android:layout_marginTop="42dp"
+        android:text="@string/Quit" />
 
 </RelativeLayout>
