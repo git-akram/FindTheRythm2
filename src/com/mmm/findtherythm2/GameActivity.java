@@ -1,7 +1,8 @@
 package com.mmm.findtherythm2;
 
 import java.util.ArrayList;
-import java.util.Timer;
+import java.util.Random;
+
 import android.app.Activity;
 import android.graphics.drawable.AnimationDrawable;
 import android.media.AudioManager;
@@ -16,7 +17,6 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.mmm.findtherythm2.controller.Controller;
 import com.mmm.findtherythm2.model.ButtonRythm;
 import com.mmm.findtherythm2.model.Model;
 import com.mmm.findtherythm2.model.Observer;
@@ -36,15 +36,11 @@ public class GameActivity extends Activity implements Observer{
 	private int score;
 	//private Controller controlleur;
 	private ButtonRythm enable_button;
+	ArrayList<Integer> enableBoutons = new ArrayList<Integer>();
+	int nbp = 0;
 	private Handler myHandler;
-	private Runnable myRunnable = new Runnable() {
-		@Override
-		public void run() {
-			// Code à éxécuter de façon périodique
-			Factory.getInstance().getController().clickFailAction();
-			myHandler.postDelayed(this,2000);
-		}
-	};
+	private Handler myHandler2;
+	
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -68,6 +64,12 @@ public class GameActivity extends Activity implements Observer{
 		push.add((ImageView) findViewById(R.id.push3));
 		push.add((ImageView) findViewById(R.id.push4));
 		push.add((ImageView) findViewById(R.id.push5));
+		push.add((ImageView) findViewById(R.id.push6));
+		push.add((ImageView) findViewById(R.id.push7));
+		push.add((ImageView) findViewById(R.id.push8));
+		//push.add((ImageView) findViewById(R.id.push9));
+		
+		hide();
 		
 		// Initialisation du boutton retour
 		back = (ImageView) findViewById(R.id.buttonBack);
@@ -80,7 +82,7 @@ public class GameActivity extends Activity implements Observer{
 
 		//affectation des listeners
 		for(int i=0; i<push.size(); i++)
-			push.get(i).setOnClickListener(pushBouton);
+			push.get(i).setOnClickListener(pushBouton2);
 		
 		//Initialisation du score 
 		scoreView = (TextView) findViewById(R.id.scoreView);
@@ -88,7 +90,33 @@ public class GameActivity extends Activity implements Observer{
 		Factory.getInstance().getController().startGameAction();
 		
 		myHandler = new Handler();
-		myHandler.postDelayed(myRunnable,2000); 
+		myHandler2 = new Handler();
+		myHandler.post(myRunnable); 
+	}
+	
+	public void hide(){
+		for (ImageView im : push)
+        	im.setVisibility(View.INVISIBLE);
+	}
+	
+	public void fight() throws InterruptedException
+	{
+
+		Random g = new Random();
+
+	    int move = g.nextInt(8);
+	    int move2 = g.nextInt (8);
+	    int move3 = g.nextInt (8);
+	    int move4 = g.nextInt(8);
+	    hide();
+	    
+	    push.get(move).setVisibility(View.VISIBLE);
+	    push.get(move2).setVisibility(View.VISIBLE);
+	    push.get(move3).setVisibility(View.VISIBLE);
+	    push.get(move4).setVisibility(View.VISIBLE);
+	    
+  	
+
 	}
 		
 	public void oppaDance() {
@@ -138,11 +166,14 @@ public class GameActivity extends Activity implements Observer{
 			danceAnimation.start();
 		}
 	}
+	
+	
 
 	OnClickListener pushBouton = new OnClickListener() {
 	
 		@Override
 		public void onClick(View boutonPushed) {
+			
 			Log.i(TAG, "onClick button");
 			myHandler.removeCallbacks(myRunnable);
 			myHandler.postDelayed(myRunnable, 2000);
@@ -159,6 +190,58 @@ public class GameActivity extends Activity implements Observer{
 						Factory.getInstance().getController().clickFailAction();
 					}
 				}	
+			}	
+		}
+	};
+	
+	OnClickListener pushBouton2 = new OnClickListener() {
+		
+		@Override
+		public void onClick(View boutonPushed) {
+			
+		
+			for(int i=0; i< push.size(); i++){
+				
+				if(boutonPushed.getId() == push.get(i).getId()) {
+					if(i == enable_button.getId()){
+						nbp++ ;
+					}
+					else {
+						Factory.getInstance().getController().clickFailAction();
+						myHandler.removeCallbacks(myRunnable);
+						myHandler2.removeCallbacks(myRunnable2);
+						myHandler.post(myRunnable);
+					}
+
+				}	
+			}	
+		}
+	};
+	
+	private Runnable myRunnable = new Runnable() {
+		@Override
+		public void run() {
+			// Code à éxécuter de façon périodique
+			try {
+				fight();
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			//myHandler2.removeCallbacks(myRunnable2);
+			myHandler.postDelayed(this,2000);
+			//myHandler2.postDelayed(this,2000);
+		}
+	};
+	
+	private Runnable myRunnable2 = new Runnable() {
+		@Override
+		public void run() {
+			if (nbp == enableBoutons.size()){
+				Factory.getInstance().getController().clickSuccessAction();
+			}
+			else {
+				Factory.getInstance().getController().clickFailAction();
 			}	
 		}
 	};
@@ -191,9 +274,9 @@ public class GameActivity extends Activity implements Observer{
 		ArrayList<ButtonRythm> listBouton= model.getButtonRythm();
 		for(int i=0; i<listBouton.size(); i++){
 			Log.i(TAG, "push("+i+") = "+listBouton.get(i).getState());
-			if(listBouton.get(i).getState() == true) {
+			if(listBouton.get(i).getState() == true ) {
 				push.get(i).setImageResource(R.drawable.button_green);
-				enable_button = listBouton.get(i);
+				enableBoutons.add(listBouton.get(i).getId());
 			}
 			else {
 				push.get(i).setImageResource(R.drawable.button_red);
@@ -206,6 +289,7 @@ public class GameActivity extends Activity implements Observer{
 		mMediaPlayer2.stop();
 		pushBouton = null;
 		myHandler.removeCallbacks(myRunnable);
+		myHandler2.removeCallbacks(myRunnable2);
 	}
 
 }

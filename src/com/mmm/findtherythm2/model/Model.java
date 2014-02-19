@@ -18,11 +18,19 @@ public class Model implements Observable{
 		ButtonRythm buttonRythm3 = new ButtonRythm(2);
 		ButtonRythm buttonRythm4 = new ButtonRythm(3);
 		ButtonRythm buttonRythm5 = new ButtonRythm(4);
+		ButtonRythm buttonRythm6 = new ButtonRythm(5);
+		ButtonRythm buttonRythm7 = new ButtonRythm(6);
+		ButtonRythm buttonRythm8 = new ButtonRythm(7);
+		/*ButtonRythm buttonRythm9 = new ButtonRythm(8);*/
 		this.buttonRythmList.add(buttonRythm1);
 		this.buttonRythmList.add(buttonRythm2);
 		this.buttonRythmList.add(buttonRythm3);
 		this.buttonRythmList.add(buttonRythm4);
 		this.buttonRythmList.add(buttonRythm5);
+		this.buttonRythmList.add(buttonRythm6);
+		this.buttonRythmList.add(buttonRythm7);
+		this.buttonRythmList.add(buttonRythm8);
+		//this.buttonRythmList.add(buttonRythm9);
 		activateButtonRandomly(0);
 		this.move = "start";
 		this.score = 0;
@@ -73,12 +81,16 @@ public class Model implements Observable{
 	
 	private void activateButtonRandomly(int id) {
 		int rand = 0;
-		do {
-			rand = (int) (Math.random() * 5);
+		int rand2 = 0;
+		int rand3 = 0;
+		do { 
+			rand = (int) (Math.random() * 8);
+			rand2 = (int) (Math.random() * 8);
+			rand3 = (int) (Math.random() * 8);
 		}while(rand == id);
 		
 		for(ButtonRythm buttonRythm : buttonRythmList) {
-			if(buttonRythm.getId() == rand)
+			if(buttonRythm.getId() == rand || buttonRythm.getId() == rand2 || buttonRythm.getId() == rand3 )
 				buttonRythm.enable();
 			else
 				buttonRythm.disable();

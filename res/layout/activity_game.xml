@@ -88,4 +88,39 @@
         android:layout_alignParentRight="true"
         android:layout_alignParentTop="true" />
 
+    <ImageView
+        android:id="@+id/push6"
+        android:layout_width="50dp"
+        android:layout_height="wrap_content"
+        android:layout_alignRight="@+id/push3"
+        android:layout_alignTop="@+id/push2"
+        android:layout_marginRight="20dp"
+        android:layout_marginTop="22dp"
+        android:adjustViewBounds="true"
+        android:baselineAlignBottom="false"
+        android:cropToPadding="false"
+        android:src="@drawable/button_red" />
+
+    <ImageView
+        android:id="@+id/push7"
+        android:layout_width="50dp"
+        android:layout_height="wrap_content"
+        android:layout_alignRight="@+id/buttonBack"
+        android:layout_below="@+id/push6"
+        android:adjustViewBounds="true"
+        android:baselineAlignBottom="false"
+        android:cropToPadding="false"
+        android:src="@drawable/button_red" />
+
+    <ImageView
+        android:id="@+id/push8"
+        android:layout_width="50dp"
+        android:layout_height="wrap_content"
+        android:layout_alignRight="@+id/background"
+        android:layout_centerVertical="true"
+        android:adjustViewBounds="true"
+        android:baselineAlignBottom="false"
+        android:cropToPadding="false"
+        android:src="@drawable/button_red" />
+
 </RelativeLayout>
