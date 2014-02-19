@@ -229,8 +229,9 @@ public class GameActivity extends Activity implements Observer{
 				e.printStackTrace();
 			}
 			//myHandler2.removeCallbacks(myRunnable2);
+			myHandler2.postDelayed(myRunnable2,2000);
 			myHandler.postDelayed(this,2000);
-			//myHandler2.postDelayed(this,2000);
+			
 		}
 	};
 	
