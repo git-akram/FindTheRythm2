@@ -83,11 +83,13 @@ public class Model implements Observable{
 		int rand = 0;
 		int rand2 = 0;
 		int rand3 = 0;
+		int rand4 =0;
 		do { 
 			rand = (int) (Math.random() * 8);
 			rand2 = (int) (Math.random() * 8);
 			rand3 = (int) (Math.random() * 8);
-		}while(rand == id);
+			rand4 = (int) (Math.random() * 8);
+		}while(rand == id || id == rand2 || id == rand3 || id == rand4);
 		
 		for(ButtonRythm buttonRythm : buttonRythmList) {
 			if(buttonRythm.getId() == rand || buttonRythm.getId() == rand2 || buttonRythm.getId() == rand3 )

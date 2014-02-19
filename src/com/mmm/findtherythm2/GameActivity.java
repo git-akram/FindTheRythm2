@@ -99,7 +99,7 @@ public class GameActivity extends Activity implements Observer{
         	im.setVisibility(View.INVISIBLE);
 	}
 	
-	public void fight() throws InterruptedException
+	public void appearsAndDisapers() throws InterruptedException
 	{
 
 		Random g = new Random();
@@ -223,7 +223,7 @@ public class GameActivity extends Activity implements Observer{
 		public void run() {
 			// Code à éxécuter de façon périodique
 			try {
-				fight();
+				appearsAndDisapers();
 			} catch (InterruptedException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -275,7 +275,7 @@ public class GameActivity extends Activity implements Observer{
 		ArrayList<ButtonRythm> listBouton= model.getButtonRythm();
 		for(int i=0; i<listBouton.size(); i++){
 			Log.i(TAG, "push("+i+") = "+listBouton.get(i).getState());
-			if(listBouton.get(i).getState() == true ) {
+			if(listBouton.get(i).getState() == true && push.get(i).getVisibility()==View.VISIBLE  ) {
 				push.get(i).setImageResource(R.drawable.button_green);
 				enableBoutons.add(listBouton.get(i).getId());
 			}
