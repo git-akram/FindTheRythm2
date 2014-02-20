@@ -43,7 +43,6 @@ public class GameActivity extends Activity implements Observer{
 	private Button save;
 	private TextView scoreView;
 	private int score;
-	//private Controller controlleur;
 	ArrayList<Integer> enableBoutons = new ArrayList<Integer>();
 	private Handler myHandler;
 	private Handler myHandler2;
