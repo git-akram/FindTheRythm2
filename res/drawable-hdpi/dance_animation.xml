@@ -9,17 +9,7 @@
     <item android:drawable="@drawable/frame06" android:duration="40" />
     <item android:drawable="@drawable/frame07" android:duration="40" />
     <item android:drawable="@drawable/frame08" android:duration="80" />
-    <item android:drawable="@drawable/frame09" android:duration="40" />
-    <item android:drawable="@drawable/frame10" android:duration="40" />
-    <item android:drawable="@drawable/frame11" android:duration="40" />
-    <item android:drawable="@drawable/frame12" android:duration="80" />
-    <item android:drawable="@drawable/frame13" android:duration="40" />
-    <item android:drawable="@drawable/frame14" android:duration="40" />
-    <item android:drawable="@drawable/frame15" android:duration="40" />
-    <item android:drawable="@drawable/frame16" android:duration="80" />
-    <item android:drawable="@drawable/frame17" android:duration="40" />
-    <item android:drawable="@drawable/frame18" android:duration="40" />
-    <item android:drawable="@drawable/frame19" android:duration="40" />
+
     
     
 </animation-list>
