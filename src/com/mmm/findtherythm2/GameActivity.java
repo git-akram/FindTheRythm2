@@ -8,15 +8,22 @@ import android.graphics.drawable.AnimationDrawable;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.os.Bundle;
+import android.os.CountDownTimer;
 import android.os.Handler;
 import android.util.Log;
 import android.view.Menu;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.mmm.findtherythm2.Factory;
+import com.mmm.findtherythm2.GameActivity;
+import com.mmm.findtherythm2.utils.ScoreUtil;
+import com.mmm.findtherythm2.R;
 import com.mmm.findtherythm2.model.ButtonRythm;
 import com.mmm.findtherythm2.model.Model;
 import com.mmm.findtherythm2.model.Observer;
@@ -29,9 +36,11 @@ public class GameActivity extends Activity implements Observer{
 	private MediaPlayer mMediaPlayer = new MediaPlayer();
 	private MediaPlayer mMediaPlayer2 = new MediaPlayer();
 	private MediaPlayer mMediaPlayer3 = new MediaPlayer();
-	private AnimationDrawable danceAnimation;	
+	private AnimationDrawable danceAnimation;
 	private ArrayList<ImageView> push;
 	private ImageView back;
+	private EditText name;
+	private Button save;
 	private TextView scoreView;
 	private int score;
 	//private Controller controlleur;
@@ -39,7 +48,23 @@ public class GameActivity extends Activity implements Observer{
 	private Handler myHandler;
 	private Handler myHandler2;
 	private int nbv=0;
-	
+	CountDownTimer timer = new CountDownTimer(30000, 30000) {
+
+	    @Override
+	    public void onTick(long millisUntilFinished) {
+	       // Nothing to do
+	    }
+
+	    @Override
+	    public void onFinish() {
+	    	finActivity();
+			setContentView(R.layout.save);
+			// Initialisation Sauvegarde de partie
+			name = (EditText) findViewById(R.id.nameEditText);
+			save = (Button) findViewById(R.id.saveButton);
+			save.setOnClickListener(saveHandler);
+	    }
+	};
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -91,6 +116,7 @@ public class GameActivity extends Activity implements Observer{
 		myHandler = new Handler();
 		myHandler2 = new Handler();
 		myHandler.post(myRunnable); 
+		timer.start();
 	}
 	
 	public void hide(){
@@ -118,6 +144,16 @@ public class GameActivity extends Activity implements Observer{
   	
 
 	}
+	
+	OnClickListener saveHandler = new OnClickListener() {
+		@Override
+		public void onClick(View buttonSave) {
+			Log.i(TAG, "onClick button save");
+			ScoreUtil.savePartie(name.getText().toString() , Factory.getInstance().getModel().getScore());
+			Factory.getInstance().destroy();
+			GameActivity.this.finish();
+		}
+	};
 		
 	public void oppaDance() {
 		final RelativeLayout rl = (RelativeLayout) findViewById(R.id.layoutGame);
