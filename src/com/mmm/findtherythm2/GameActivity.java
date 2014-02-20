@@ -35,11 +35,10 @@ public class GameActivity extends Activity implements Observer{
 	private TextView scoreView;
 	private int score;
 	//private Controller controlleur;
-	private ButtonRythm enable_button;
 	ArrayList<Integer> enableBoutons = new ArrayList<Integer>();
-	int nbp = 0;
 	private Handler myHandler;
 	private Handler myHandler2;
+	private int nbv=0;
 	
 	
 	@Override
@@ -109,7 +108,8 @@ public class GameActivity extends Activity implements Observer{
 	    int move3 = g.nextInt (8);
 	    int move4 = g.nextInt(8);
 	    hide();
-	    
+	    for (int j=0;j<enableBoutons.size();j++)
+	    	push.get(enableBoutons.get(j)).setVisibility(View.VISIBLE);
 	    push.get(move).setVisibility(View.VISIBLE);
 	    push.get(move2).setVisibility(View.VISIBLE);
 	    push.get(move3).setVisibility(View.VISIBLE);
@@ -169,30 +169,7 @@ public class GameActivity extends Activity implements Observer{
 	
 	
 
-	OnClickListener pushBouton = new OnClickListener() {
-	
-		@Override
-		public void onClick(View boutonPushed) {
-			
-			Log.i(TAG, "onClick button");
-			myHandler.removeCallbacks(myRunnable);
-			myHandler.postDelayed(myRunnable, 2000);
-			for(int i=0; i< push.size(); i++){
-				Log.i(TAG, "for : "+boutonPushed.getId()+" | "+push.get(i).getId());
-				//Je cherche la correpondance du bouton cliqué dans la liste des views
-				if(boutonPushed.getId() == push.get(i).getId()) {
-					Log.i(TAG, "enable : "+enable_button.getId());
-					//si on clique sur le bon bouton
-					if(i == enable_button.getId()){
-						Factory.getInstance().getController().clickSuccessAction();
-					}
-					else {
-						Factory.getInstance().getController().clickFailAction();
-					}
-				}	
-			}	
-		}
-	};
+
 	
 	OnClickListener pushBouton2 = new OnClickListener() {
 		
@@ -203,10 +180,21 @@ public class GameActivity extends Activity implements Observer{
 			for(int i=0; i< push.size(); i++){
 				
 				if(boutonPushed.getId() == push.get(i).getId()) {
-					if(i == enable_button.getId()){
-						nbp++ ;
+					if(enableBoutons.contains(i)){
+						nbv++;
+						if (nbv == enableBoutons.size()){
+							Factory.getInstance().getController().clickSuccessAction();
+							nbv=0;
+							myHandler.removeCallbacks(myRunnable);
+							myHandler2.removeCallbacks(myRunnable2);
+							myHandler.post(myRunnable);
+						}
+							
+						else
+							mMediaPlayer3.start();
 					}
 					else {
+						nbv=0;
 						Factory.getInstance().getController().clickFailAction();
 						myHandler.removeCallbacks(myRunnable);
 						myHandler2.removeCallbacks(myRunnable2);
@@ -229,8 +217,8 @@ public class GameActivity extends Activity implements Observer{
 				e.printStackTrace();
 			}
 			//myHandler2.removeCallbacks(myRunnable2);
-			myHandler2.postDelayed(myRunnable2,2000);
-			myHandler.postDelayed(this,2000);
+			myHandler2.postDelayed(myRunnable2,3000);
+			myHandler.postDelayed(this,3000);
 			
 		}
 	};
@@ -238,12 +226,13 @@ public class GameActivity extends Activity implements Observer{
 	private Runnable myRunnable2 = new Runnable() {
 		@Override
 		public void run() {
-			if (nbp == enableBoutons.size()){
+			if (nbv == enableBoutons.size()){
 				Factory.getInstance().getController().clickSuccessAction();
 			}
 			else {
 				Factory.getInstance().getController().clickFailAction();
-			}	
+			}
+			nbv=0;
 		}
 	};
 	
@@ -273,11 +262,13 @@ public class GameActivity extends Activity implements Observer{
 
 	private void updatePush(Model model) {
 		ArrayList<ButtonRythm> listBouton= model.getButtonRythm();
+		enableBoutons.clear();
 		for(int i=0; i<listBouton.size(); i++){
 			Log.i(TAG, "push("+i+") = "+listBouton.get(i).getState());
-			if(listBouton.get(i).getState() == true && push.get(i).getVisibility()==View.VISIBLE  ) {
+			if(listBouton.get(i).getState() == true  ) {
 				push.get(i).setImageResource(R.drawable.button_green);
 				enableBoutons.add(listBouton.get(i).getId());
+				Log.i(TAG, "enable("+i+") = "+listBouton.get(i).getId());
 			}
 			else {
 				push.get(i).setImageResource(R.drawable.button_red);
@@ -288,7 +279,7 @@ public class GameActivity extends Activity implements Observer{
 	
 	protected void finActivity() {
 		mMediaPlayer2.stop();
-		pushBouton = null;
+		pushBouton2 = null;
 		myHandler.removeCallbacks(myRunnable);
 		myHandler2.removeCallbacks(myRunnable2);
 	}
