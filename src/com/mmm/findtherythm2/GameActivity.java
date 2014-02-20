@@ -153,20 +153,6 @@ public class GameActivity extends Activity implements Observer{
 			GameActivity.this.finish();
 		}
 	};
-		
-	public void oppaDance() {
-		final RelativeLayout rl = (RelativeLayout) findViewById(R.id.layoutGame);
-        rl.postDelayed(new Runnable() {
-            int i = 0;
-            public void run() {
-            	rl.setBackgroundResource(
-                    i++ % 2 == 0 ?
-                    		R.drawable.op2 :
-                    		R.drawable.op1);
-            	rl.postDelayed(this, 500);
-            }
-        }, 500);
-	}
 	
 	public void configSound() {
 		mMediaPlayer = MediaPlayer.create(this, R.raw.error);
